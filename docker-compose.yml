@@ -1,0 +1,29 @@
+services:
+  vault:
+    image: hashicorp/vault:latest
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: testtoken
+    ports:
+      - 8200:8200
+    privileged: true
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: myuser1
+      POSTGRES_PASSWORD: ${DB_PSW}
+      POSTGRES_DB: penguinsDB
+    ports:
+      - 5432:5432
+  web:
+    build: .
+    command: bash -c "python src/api/test_vault.py && fastapi dev src/api/api.py --host 0.0.0.0 --port 8000"
+    ports:
+      - 8000:8000
+    image: borisvikvik/borisvikvik-penguins-data-science:latest
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080

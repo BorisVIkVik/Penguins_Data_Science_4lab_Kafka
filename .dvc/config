@@ -1,0 +1,4 @@
+[core]
+    remote = lfs-storage
+['remote "lfs-storage"']
+    url = ../git@github.com:BorisVIkVik/Penguins_Data_Science_4lab_Kafka.git

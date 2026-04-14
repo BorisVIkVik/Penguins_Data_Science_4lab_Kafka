@@ -1,0 +1,17 @@
+{
+    "X": [
+        {
+            "Culmen Length (mm)": 37.5,
+            "Culmen Depth (mm)": 18.5,
+            "Flipper Length (mm)": 199.0,
+            "Body Mass (g)": 4475.0,
+            "Delta 15 N (o/oo)": 8.56708,
+            "Delta 13 C (o/oo)": -26.49288
+        }					
+    ],
+    "y": [
+        {
+            "0": "Adelie Penguin (Pygoscelis adeliae)"
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+model: SVM
+model params:
+  kernel: linear
+  random_state: '0'
+  path: /Users/bw/GITS/ITMO/Penguins_Data_Science/experiments/svm.sav
+tests: func
+score: '1.0'
+X_test path: /Users/bw/GITS/ITMO/Penguins_Data_Science/data/Test_penguins_lter.csv
+y_test path: /Users/bw/GITS/ITMO/Penguins_Data_Science/data/Test_penguins_lter_y.csv

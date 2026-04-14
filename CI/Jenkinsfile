@@ -1,0 +1,69 @@
+pipeline {
+    agent any
+    environment {
+        PATH = "/Library/Frameworks/Python.framework/Versions/3.12/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:$PATH"
+        DOCKERHUB_CREDS = credentials('Penguins-data-science')
+        VAULT_CREDS = credentials('Penguins-data-science-vault')
+    }
+    stages {
+        stage('Clone github repository') {
+            steps {
+                    sh  '''
+                            cat .dvc/config
+                            dvc pull
+                        '''
+				}
+			}
+
+        stage('Checkout repo dir') {
+            steps {
+                sh 'ls'
+				}
+			}
+        stage('Login'){
+            steps{
+                // sh 'source .env'
+                sh 'docker login -u $DOCKERHUB_CREDS_USR -p $DOCKERHUB_CREDS_PSW'
+                }
+            }
+
+        stage('Create and run docker container') {
+            steps {
+                script {
+                    try {
+                        sh '''
+                            cat > .env << EOF
+                            DB_PSW=$VAULT_CREDS_PSW
+                            EOF
+                        '''
+                        // sh 'export DB_PSW=$VAULT_CREDS_PSW && echo $DB_PSW && docker compose build'
+                        withEnv(["DB_PSW=${VAULT_CREDS_PSW}"]) {
+                            sh 'docker compose build'
+                        }
+                        sh 'docker tag borisvikvik/borisvikvik-penguins-data-science:latest borisvikvik/borisvikvik-penguins-data-science:3_lab'
+                        
+                        }
+
+                    finally {
+                    sh '''
+                        docker compose up -d
+                        '''
+                        }
+				    }
+                }
+            }
+        stage('Push')
+        {
+            steps{
+                sh 'docker push borisvikvik/borisvikvik-penguins-data-science:3_lab'
+            }
+        }
+        
+    }
+    post{
+        always{
+            sh 'docker logout'
+        }
+    }
+
+}
