@@ -6,7 +6,7 @@ from pydantic import BaseModel
 import time
 
 config = {
-    'bootstrap.servers': 'localhost:29092',
+    'bootstrap.servers': 'kafka:9092',
     'group.id': 'mygroup',
     'auto.offset.reset': 'earliest',
 }
@@ -43,4 +43,4 @@ while True:
         Delta13C = np.random.randint(0, 100), 
     )
     send_message('penguin_topic', json.dumps(data.__dict__))
-    time.sleep(1)
+    time.sleep(10)

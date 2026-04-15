@@ -51,7 +51,7 @@ services:
       - 5432:5432
   web:
     build: .
-    command: bash -c "python src/api/test_vault.py && fastapi dev src/api/api.py --host 0.0.0.0 --port 8012"
+    command: bash -c "python src/preprocess.py && python src/train.py && python src/api/test_vault.py && fastapi dev src/api/api.py --host 0.0.0.0 --port 8012"
     ports:
       - 8012:8012
     image: borisvikvik/borisvikvik-penguins-data-science:4_lab
@@ -63,13 +63,17 @@ services:
     ports:
       - 8081:8080
   producer:
+    build: .
     depends_on:
         - db
     command: bash -c "python src/kafka_workers/producer.py"
+    image: producer
   consumer:
+    build: .
     depends_on:
         - db
-    command: bash -c "python src/kafka_workers/consumer.py"
+    command: bash -c "python src/preprocess.py && python src/train.py && python src/kafka_workers/consumer.py"
+    image: consumer
   
 
 

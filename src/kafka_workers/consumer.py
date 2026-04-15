@@ -38,7 +38,7 @@ cur = conn.cursor()
 
 
 config = {
-    'bootstrap.servers': 'localhost:29092',
+    'bootstrap.servers': 'kafka:9092',
     'group.id': 'mygroup',
     'auto.offset.reset': 'earliest',
 }

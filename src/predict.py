@@ -11,6 +11,7 @@ import sys
 import time
 import traceback
 import yaml
+import numpy as np
 
 from logger import Logger
 
@@ -63,7 +64,17 @@ class Predictor():
         except FileNotFoundError:
             self.log.error(traceback.format_exc())
             sys.exit(1)
-        return classifier.predict(data)
+        tmp = [np.array([i for i in data.__dict__.values()], dtype=np.float32)]
+        # data_tmp = {
+        #     "Culmen Length (mm)": data.Culmen_Length,
+        #     "Culmen Depth (mm)": data.Culmen_Depth,
+        #     "Flipper Length (mm)": data.Flipper_Length,
+        #     "Body Mass (g)": data.Body_Mass,
+        #     "Delta 15 N (o/oo)": data.Delta15N,
+        #     "Delta 13 C (o/oo)": data.Delta13C
+        # }	
+        print(classifier.predict(tmp))
+        return {'data': classifier.predict(tmp)[0]}
 
     def predict(self) -> bool:
         args = self.parser.parse_args()
