@@ -62,6 +62,16 @@ services:
     restart: always
     ports:
       - 8081:8080
+  producer:
+    depends_on:
+        - db
+    command: bash -c "python src/kafka_workers/producer.py"
+  consumer:
+    depends_on:
+        - db
+    command: bash -c "python src/kafka_workers/consumer.py"
+  
+
 
 volumes:
   zookeeper_data:
