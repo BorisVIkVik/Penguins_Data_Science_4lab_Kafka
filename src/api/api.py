@@ -35,7 +35,7 @@ import psycopg2
 
 conn =psycopg2.connect(
     dbname='penguinsDB',
-    user='myuser',
+    user='myuser1',
     password=password,
     host='db',
     port='5432'

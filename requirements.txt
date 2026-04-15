@@ -10,3 +10,4 @@ uvicorn
 psycopg2-binary
 hvac
 python-dotenv
+confluent-kafka
