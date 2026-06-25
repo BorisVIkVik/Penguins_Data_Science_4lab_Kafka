@@ -30,7 +30,7 @@ read_response = client.secrets.kv.read_secret_version(path='my-secret-password')
 
 password = read_response['data']['data']['password']
 # print(password)
-log.info(password)
+# log.info(password)
 
 import psycopg2
 
