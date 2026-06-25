@@ -72,7 +72,7 @@ services:
     build: .
     depends_on:
         - db
-    command: bash -c "python src/preprocess.py && python src/train.py && python src/kafka_workers/consumer.py"
+    command: bash -c "sleep 10 && python src/preprocess.py && python src/train.py && python src/kafka_workers/consumer.py"
     image: consumer
   
 
