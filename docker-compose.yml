@@ -54,7 +54,7 @@ services:
     command: bash -c "python src/preprocess.py && python src/train.py && python src/api/test_vault.py && fastapi dev src/api/api.py --host 0.0.0.0 --port 8012"
     ports:
       - 8012:8012
-    image: borisvikvik/borisvikvik-penguins-data-science:4_lab
+    image: borisvikvik/borisvikvik-penguins-data-science-4lab:4_lab
     depends_on:
       - db
   adminer:

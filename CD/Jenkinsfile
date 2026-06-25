@@ -14,13 +14,14 @@ pipeline{
         }
         stage('Pull image'){
             steps{
-                sh 'docker pull borisvikvik/borisvikvik-penguins-data-science:3_lab'
+                sh 'docker pull borisvikvik/borisvikvik-penguins-data-science-4lab:latest'
             }
         }
         stage('Run container'){
             steps{
                 withEnv(["DB_PSW=${VAULT_CREDS_PSW}"]) {
-                    sh 'docker compose up'
+                    sh 'docker compose up -d'
+                    sh 'sleep 30 && docker compose down'
                 }
                 // sh 'docker run --name penguins-data-science -p 8080:5556'
             }
@@ -28,7 +29,7 @@ pipeline{
     }
     post{
         always{
-            sh 'docker stop penguins-data-science '
+            sh 'docker logout'
         }
     }
 }
