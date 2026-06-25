@@ -40,7 +40,7 @@ pipeline {
                         withEnv(["DB_PSW=${VAULT_CREDS_PSW}"]) {
                             sh 'docker compose build'
                         }
-                        sh 'docker tag borisvikvik/borisvikvik-penguins-data-science-4lab:latest borisvikvik/borisvikvik-penguins-data-science-4lab:latest'
+                        // sh 'docker tag borisvikvik/borisvikvik-penguins-data-science-4lab:latest borisvikvik/borisvikvik-penguins-data-science-4lab:latest'
                         
                         }
 
